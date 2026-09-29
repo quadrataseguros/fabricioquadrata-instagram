@@ -1,0 +1,14 @@
+services:
+  - type: cron
+    name: fabricio-instagram-agenda
+    runtime: python
+    schedule: "*/15 * * * *"   # a cada 15 min; a janela 10:00-21:30 (Brasília) é controlada no script
+    buildCommand: pip install -r requirements.txt
+    startCommand: python scripts/publicar_agenda.py
+    envVars:
+      - key: INSTAGRAM_BUSINESS_ID
+        sync: false            # preencher no painel do Render
+      - key: INSTAGRAM_ACCESS_TOKEN
+        sync: false            # MESMO token do robô de mensagens (vence 27/11/2026)
+      - key: INSTAGRAM_USERNAME
+        value: fabricioquadrata

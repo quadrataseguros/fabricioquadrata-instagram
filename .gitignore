@@ -1,0 +1,11 @@
+# NUNCA enviar o token ao GitHub
+credenciais.txt
+.env
+
+__pycache__/
+agenda_log.txt
+FALHAS.txt
+PUBLICADO.txt
+
+# vídeos e artes originais (pesados, não precisam ir pro servidor)
+posts/SUGESTÃO/

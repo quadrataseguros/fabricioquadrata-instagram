@@ -1,0 +1,16 @@
+# Agenda de publicação automática (só posts JÁ APROVADOS)
+# Formato: AAAA-MM-DD HH:MM pasta
+# O agendador confere a cada 15 minutos e publica o que já passou do horário.
+# Linhas começando com # são ignoradas. Posts com PUBLICADO.txt são pulados.
+
+2026-09-29 18:30 002_seguro_auto
+2026-09-30 12:00 010_chuva_alagamento
+2026-10-01 18:30 004_seguro_de_vida
+2026-10-02 12:00 011_o_que_e_franquia
+2026-10-03 10:30 007_seguro_residencial
+2026-10-04 19:00 012_mitos_seguro_de_vida
+2026-10-05 18:30 006_planos_de_saude
+2026-10-06 12:00 014_mora_de_aluguel
+2026-10-07 18:30 003_assistencia_familiar
+2026-10-08 12:00 013_antes_de_renovar
+2026-10-09 18:30 015_cotacao_pelo_whatsapp
