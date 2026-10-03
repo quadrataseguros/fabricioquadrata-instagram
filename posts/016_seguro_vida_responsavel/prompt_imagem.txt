@@ -1,0 +1,38 @@
+PROMPT para gerar o fundo (Midjourney / DALL·E / Kling imagem / Ideogram)
+=========================================================================
+
+Observação: gerador de imagem erra texto com frequência. Por isso o
+prompt pede só o FUNDO, limpo, sem texto e sem logo — a frase, o
+telefone e a logo entram depois por cima (Canva, Photoshop ou o
+gerador de slides daqui mesmo).
+
+-------------------------------------------------------------------------
+PROMPT (fundo, 1080x1350 vertical / proporção 4:5)
+-------------------------------------------------------------------------
+Minimalist, clean vertical photograph, 4:5 portrait orientation. Calm
+ocean horizon at golden hour, soft warm sunset gradient sky blending
+into deep navy blue at the top, gentle glowing reflection of the sun
+on still, quiet water. Lots of empty negative space above and below
+the horizon for text overlay. No people, no text, no logos, no
+watermark, no objects in frame. Soft cinematic lighting, shallow
+depth of field, serene and contemplative mood, evoking quiet
+reflection on life. Photorealistic, high resolution, subtle film
+grain, premium and elegant feel.
+
+-------------------------------------------------------------------------
+TEXTO A ADICIONAR DEPOIS (por cima do fundo)
+-------------------------------------------------------------------------
+Frase central (destaque, fonte Poppins Bold, branco):
+
+  Se não pode ser ETERNO,
+  seja RESPONSÁVEL.
+
+Telefone (menor, abaixo da frase, fonte Poppins Medium/Bold, branco):
+
+  (11) 98678-0000
+
+Logo: @fabricioquadrata adiciona por conta própria (marca/logo_quadrata.png).
+
+-------------------------------------------------------------------------
+STATUS: aguardando o fundo gerado para compor a frase + telefone em
+cima e aprovação antes de publicar.

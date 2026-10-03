@@ -1,6 +1,6 @@
 """
 publicar_pasta.py — publica um post a partir de uma pasta em posts/.
-A pasta precisa ter: slide1.jpg, slide2.jpg... (2 a 10) e legenda.txt
+A pasta precisa ter: slide1.jpg, slide2.jpg... (1 a 10; 1 = imagem única) e legenda.txt
 Uso: python scripts/publicar_pasta.py posts/001_nome_do_post
 """
 import sys
