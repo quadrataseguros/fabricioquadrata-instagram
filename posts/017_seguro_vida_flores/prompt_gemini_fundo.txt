@@ -1,0 +1,26 @@
+PROMPT para o Gemini gerar o FUNDO do post 017 (sem texto)
+==========================================================
+Depois de gerar, mandar a imagem no chat: a frase, o botão do
+WhatsApp, o selo, a logo e o @fabricioquadrata entram por cima,
+no mesmo layout já aprovado.
+
+-------------------------------------------------------------------------
+PROMPT
+-------------------------------------------------------------------------
+Crie uma fotografia realista, vertical, na proporção 4:5 (1080x1350),
+para um post de Instagram sobre seguro de vida.
+
+Cena: uma mãe de uns 35 anos e o filho de uns 9 anos, sentados juntos
+no sofá da sala de casa, num fim de tarde. Ela abraça o menino com
+carinho e os dois olham, serenos, para um porta-retrato com a foto de
+um homem (o pai), que ela segura nas mãos. O clima é de saudade, mas
+com acolhimento e esperança, não de desespero. Luz natural suave e
+quente entrando pela janela, tons sóbrios (azul-marinho, cinza,
+bege), fundo levemente desfocado.
+
+Composição: as pessoas ocupam a metade de cima da imagem. A metade de
+baixo deve ser simples e mais escura (sofá, chão ou sombra), sem
+detalhes importantes, porque ali vai entrar texto depois.
+
+Não coloque nenhum texto, letra, número, logotipo ou marca d'água na
+imagem. Estilo fotográfico, natural, cinematográfico, alta resolução.
