@@ -94,6 +94,19 @@ def create_media_container(image_url: str) -> str:
     return result["id"]
 
 
+def create_single(image_url: str, caption: str) -> str:
+    resp = requests.post(f"{BASE_URL}/{IG_ID}/media", data={
+        "access_token": TOKEN,
+        "image_url": image_url,
+        "caption": caption,
+    }, timeout=60)
+    result = resp.json()
+    if "id" not in result:
+        raise RuntimeError(f"Erro ao criar post: {result}")
+    print(f"  Post criado: {result['id']}")
+    return result["id"]
+
+
 def create_carousel(media_ids: list, caption: str) -> str:
     resp = requests.post(f"{BASE_URL}/{IG_ID}/media", data={
         "access_token": TOKEN,
@@ -137,8 +150,8 @@ def run(images: list, caption: str, dry_run: bool = False):
     if not IG_ID or not TOKEN:
         print("ERRO: Credenciais não encontradas. Verifique o arquivo .env")
         sys.exit(1)
-    if len(images) < 2:
-        print("ERRO: Mínimo 2 imagens para carrossel.")
+    if len(images) < 1:
+        print("ERRO: Nenhuma imagem encontrada.")
         sys.exit(1)
     if len(images) > 10:
         print("ERRO: Máximo 10 imagens.")
@@ -152,23 +165,26 @@ def run(images: list, caption: str, dry_run: bool = False):
     print("\nPasso 1/3 — Hospedando imagens...")
     urls = [host_image(img) for img in images]
 
-    print("\nPasso 2/3 — Criando containers...")
-    ids = [create_media_container(url) for url in urls]
+    if len(urls) == 1:
+        print("\nPasso 2/3 — Criando post de imagem única...")
+        container_id = create_single(urls[0], caption)
+    else:
+        print("\nPasso 2/3 — Criando containers...")
+        ids = [create_media_container(url) for url in urls]
+        print("\nPasso 3/3 — Montando e publicando carrossel...")
+        container_id = create_carousel(ids, caption)
 
-    print("\nPasso 3/3 — Montando e publicando carrossel...")
-    carousel_id = create_carousel(ids, caption)
-
-    if not wait_ready(carousel_id):
+    if not wait_ready(container_id):
         print("ERRO: Timeout no processamento. Tente novamente.")
         sys.exit(1)
 
-    post_id = publish(carousel_id)
+    post_id = publish(container_id)
     print(f"\nPublicado com sucesso!")
     print(f"Post ID: {post_id}")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Publica carrossel no Instagram")
+    parser = argparse.ArgumentParser(description="Publica imagem única ou carrossel no Instagram")
     parser.add_argument("--images", nargs="+", required=True, help="Caminhos das imagens")
     parser.add_argument("--caption", required=True, help="Legenda do post")
     parser.add_argument("--dry-run", action="store_true", help="Testa sem publicar")
