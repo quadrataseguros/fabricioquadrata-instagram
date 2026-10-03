@@ -39,7 +39,7 @@ def soft_lines(img, lines):
     return Image.alpha_composite(img, layer)
 
 # ---------- foto: mãe e filho com o retrato do pai ----------
-foto = Image.open(AQUI / 'foto_base.jpg').convert('RGB')
+foto = Image.open(AQUI / 'foto_editada.jpg').convert('RGB')
 foto = foto.resize((W, int(foto.height * W / foto.width)), Image.LANCZOS)  # 1080 x 1341
 im = Image.new('RGBA', (W, H), DEEP + (255,))
 im.paste(foto, (0, 0))
