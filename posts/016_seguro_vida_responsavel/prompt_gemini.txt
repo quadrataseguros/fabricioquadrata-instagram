@@ -1,0 +1,39 @@
+PROMPT para o Gemini (Nano Banana / Imagen) gerar a imagem completa
+=====================================================================
+Cole o texto abaixo no Gemini. Ele gera o fundo E o texto já
+compostos na imagem. Depois é só você adicionar a logo por cima
+(marca/logo_quadrata.png) em um editor (Canva, Photoshop etc.).
+
+-------------------------------------------------------------------------
+PROMPT
+-------------------------------------------------------------------------
+Crie uma imagem vertical no formato 1080x1350 (proporção 4:5), para
+um post de Instagram sobre seguro de vida. Estilo minimalista,
+elegante e clean, sem poluição visual.
+
+Fundo: horizonte do mar ao entardecer, céu com gradiente suave do
+azul-marinho escuro (no topo) até tons quentes de laranja/dourado
+perto da linha do horizonte, reflexo sutil do sol na água calma.
+Clima contemplativo, de reflexão sobre a vida. Sem pessoas, sem
+objetos, sem logos, sem marca d'água.
+
+Sobre o fundo, inclua apenas este texto, bem legível, centralizado,
+em uma tipografia sans-serif moderna e bold (estilo Poppins Bold),
+na cor branca, com bom contraste contra o fundo:
+
+"Se não pode ser ETERNO,
+seja RESPONSÁVEL."
+
+Abaixo da frase, com bastante espaço de respiro, em fonte menor
+(sans-serif, peso medium/bold, branca):
+
+"(11) 98678-0000"
+
+Não inclua nenhum outro texto, ícone, logotipo, marca d'água ou
+elemento gráfico além desses dois blocos de texto. Deixe uma margem
+limpa nas bordas. Garanta que as palavras em português fiquem
+escritas corretamente, sem erros de ortografia ou acentuação.
+
+-------------------------------------------------------------------------
+Depois de gerar: adicionar a logo da Quadrata (marca/logo_quadrata.png)
+e mostrar pra aprovação antes de publicar.
