@@ -27,10 +27,6 @@ def paste(img, src, w, xy):
     img.alpha_composite(s, xy)
 def ctext(d, y, t, font, fill):
     w = d.textlength(t, font=font); d.text(((W - w) / 2, y), t, font=font, fill=fill)
-def ctext_shadow(d, y, t, font, fill, shadow=(0, 0, 0, 120), off=3):
-    w = d.textlength(t, font=font); x = (W - w) / 2
-    d.text((x, y + off), t, font=font, fill=shadow)
-    d.text((x, y), t, font=font, fill=fill)
 def lerp(c1, c2, t): return tuple(int(c1[i] + (c2[i] - c1[i]) * t) for i in range(3))
 
 # ---------- fundo: entardecer suave sobre o mar ----------
@@ -86,28 +82,52 @@ for y in range(HORIZON + 6, H, 8):
 refl = refl.filter(ImageFilter.GaussianBlur(9))
 im = Image.alpha_composite(im, refl)
 
-d = ImageDraw.Draw(im)
+# ---------- texto com sombra desfocada (acabamento suave) ----------
+def soft_text(img, items):
+    shadow = Image.new('RGBA', (W, H), (0, 0, 0, 0)); sd = ImageDraw.Draw(shadow)
+    for y, t, font, _ in items:
+        w = sd.textlength(t, font=font); sd.text(((W - w) / 2, y + 4), t, font=font, fill=(0, 0, 0, 150))
+    img = Image.alpha_composite(img, shadow.filter(ImageFilter.GaussianBlur(10)))
+    layer = Image.new('RGBA', (W, H), (0, 0, 0, 0)); ld = ImageDraw.Draw(layer)
+    for y, t, font, fill in items:
+        w = ld.textlength(t, font=font); ld.text(((W - w) / 2, y), t, font=font, fill=fill)
+    return Image.alpha_composite(img, layer)
 
-# ---------- texto: frase solta sobre o fundo, leve e com respiro ----------
-ctext_shadow(d, 255, 'Se não pode ser', f('Medium', 44), (255, 255, 255, 235))
-ctext_shadow(d, 318, 'ETERNO,', f('Bold', 104), WHITE)
-ctext_shadow(d, 462, 'seja', f('Medium', 44), (255, 255, 255, 235))
-ctext_shadow(d, 525, 'RESPONSÁVEL.', f('Bold', 74), (96, 174, 255, 255))
+# selo de contexto
+tag = Image.new('RGBA', (W, H), (0, 0, 0, 0)); td = ImageDraw.Draw(tag)
+tf = f('Bold', 26); tlabel = 'SEGURO DE VIDA'
+tw = td.textlength(tlabel, font=tf) + 64
+td.rounded_rectangle(((W - tw) / 2, 168, (W + tw) / 2, 220), radius=26, fill=(255, 255, 255, 34), outline=(255, 255, 255, 110), width=2)
+td.text(((W - tw) / 2 + 32, 178), tlabel, font=tf, fill=(255, 255, 255, 240))
+im = Image.alpha_composite(im, tag)
 
-# ---------- botão do telefone: elemento próprio, separado da frase ----------
-pill_w, pill_h = 560, 108
-px0, py0 = (W - pill_w) // 2, 760
-pill = Image.new('RGBA', (W, H), (0, 0, 0, 0)); pd = ImageDraw.Draw(pill)
-pd.rounded_rectangle((px0, py0, px0 + pill_w, py0 + pill_h), radius=pill_h // 2, fill=(8, 20, 42, 150))
-pd.rounded_rectangle((px0, py0, px0 + pill_w, py0 + pill_h), radius=pill_h // 2, outline=(255, 255, 255, 90), width=2)
-im = Image.alpha_composite(im, pill)
+im = soft_text(im, [
+    (262, 'Não pode ser', f('Medium', 46), (255, 255, 255, 235)),
+    (322, 'ETERNO,', f('Bold', 112), WHITE),
+    (472, 'então seja', f('Medium', 46), (255, 255, 255, 235)),
+    (534, 'RESPONSÁVEL.', f('Bold', 78), (110, 182, 255, 255)),
+])
+
+# chamada de venda
+im = soft_text(im, [
+    (800, 'Fale agora com nossa equipe', f('Medium', 36), WHITE),
+    (848, 'e proteja você e sua família.', f('Medium', 36), WHITE),
+])
+
+# botão do telefone (azul sólido da marca, com brilho suave)
+bw, bh = 600, 104
+bx, by = (W - bw) // 2, 930
+glow_b = Image.new('RGBA', (W, H), (0, 0, 0, 0)); gb = ImageDraw.Draw(glow_b)
+gb.rounded_rectangle((bx, by + 8, bx + bw, by + bh + 8), radius=bh // 2, fill=(36, 138, 255, 140))
+im = Image.alpha_composite(im, glow_b.filter(ImageFilter.GaussianBlur(22)))
+btn = Image.new('RGBA', (W, H), (0, 0, 0, 0)); bd = ImageDraw.Draw(btn)
+bd.rounded_rectangle((bx, by, bx + bw, by + bh), radius=bh // 2, fill=BLUE)
+pf = f('Bold', 46); phone = '(11) 98678-0000'
+pw = bd.textlength(phone, font=pf)
+bd.text(((W - pw) / 2, by + 22), phone, font=pf, fill=WHITE)
+im = Image.alpha_composite(im, btn)
 d = ImageDraw.Draw(im)
-dot_r = 7
-d.ellipse((px0 + 46, py0 + pill_h // 2 - dot_r, px0 + 46 + dot_r * 2, py0 + pill_h // 2 + dot_r), fill=BLUE)
-phone = '(11) 98678-0000'
-pf = f('Bold', 42)
-tw = d.textlength(phone, font=pf)
-d.text((px0 + 46 + dot_r * 2 + 24, py0 + (pill_h - 50) // 2), phone, font=pf, fill=WHITE)
+ctext(d, by + bh + 22, 'Atendimento 24h pelo WhatsApp', f('Regular', 26), (225, 232, 245))
 
 # ---------- rodapé: logo + @fabricioquadrata ----------
 scrim = Image.new('RGBA', (W, H), (0, 0, 0, 0)); sd = ImageDraw.Draw(scrim)
