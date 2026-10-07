@@ -33,6 +33,7 @@ scripts/
   publicar_pasta.py      (publica uma pasta de posts/)
   testar_conexao.py
 credenciais.txt          (token — NUNCA enviar ao GitHub nem mostrar em chat)
+inspiracao/              (peças de referência de outras marcas, ver LEIA-ME.txt; nunca publicar nem copiar logo/texto)
 ```
 
 ## Como criar um post novo
