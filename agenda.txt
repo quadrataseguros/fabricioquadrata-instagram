@@ -15,4 +15,5 @@
 2026-10-08 12:00 013_antes_de_renovar
 2026-10-09 18:30 015_cotacao_pelo_whatsapp
 2026-10-10 10:30 007_seguro_residencial
-2026-10-20 15:30 017_seguro_vida_valores
+# 2026-10-20 15:30 017_seguro_vida_valores   (substituído pelo 018; não publicar)
+2026-10-20 17:30 018_seguro_vida_cinema
