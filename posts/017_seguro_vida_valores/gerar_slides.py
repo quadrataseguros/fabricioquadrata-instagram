@@ -24,7 +24,7 @@ def ctext(d, y, t, font, fill):
 def rtext(d, xr, y, t, font, fill):
     w = d.textlength(t, font=font); d.text((xr - w, y), t, font=font, fill=fill)
 def footer(d, fill, active):
-    ctext(d, H - 95, '@fabricioquadrata', f('Medium', 30), fill)
+    ctext(d, H - 95, '@quadrataseguros', f('Medium', 30), fill)
     x0 = W / 2 - (N * 28) / 2
     for i in range(N):
         c = fill if i == active else (fill[0] // 2 + 60, fill[1] // 2 + 60, fill[2] // 2 + 60)
@@ -122,6 +122,6 @@ ctext(d, 590, 'Peça a sua simulação', f('Bold', 70), WHITE)
 ctext(d, 685, 'é só dizer sua idade', f('Bold', 70), NAVY)
 ctext(d, 835, 'WhatsApp', f('Medium', 38), WHITE)
 d.rounded_rectangle((150, 895, W - 150, 1015), radius=60, fill=NAVY)
-ctext(d, 915, '(11) 98678-0000', f('Bold', 56), WHITE)
+ctext(d, 915, '(11) 4782-0888', f('Bold', 56), WHITE)
 ctext(d, 1050, 'ou chama no direct', f('Medium', 36), WHITE)
 footer(d, WHITE, 3); save(im, 4)
