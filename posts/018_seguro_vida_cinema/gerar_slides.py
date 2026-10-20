@@ -163,8 +163,8 @@ d.text((650, 970), 'por mês', font=f('Medium', 22), fill=NAVY)
 d.line((830, 1180, 990, 1180), fill=WHITE, width=4); d.line((960, 1160, 992, 1180, 960, 1200), fill=WHITE, width=4, joint='curve')
 footer(im, 0); salvar(im, 1)
 
-# Slide 2 — tabela
-im = fatia(1, desfoque=10, escuro=0.20); d = ImageDraw.Draw(im)
+# Slide 3 — tabela
+im = fatia(2, desfoque=10, escuro=0.20); d = ImageDraw.Draw(im)
 texto_sombra(im, (W / 2, 120), 'Valores por idade', f('Bold', 66), WHITE, 'mm')
 texto_sombra(im, (W / 2, 180), 'por mês, no débito em conta (12x)', f('Medium', 32), WHITE, 'mm')
 XL, XH, XM, CW = 70, 330, 705, 305
@@ -187,10 +187,10 @@ d.text((130, y + 14), 'Câncer (R$ 50 mil) sem custo só em outubro,', font=f('R
 d.text((130, y + 44), 'nas parcelas acima de R$ 100.', font=f('Regular', 25), fill=WHITE)
 d.text((84, y + 94), 'No cartão: 11x com 15% de desconto no total.', font=f('Regular', 24), fill=LIGHT)
 d.text((84, y + 126), 'Simulação de 20/10/2026, válida até 26/10. Sujeita à análise de risco.', font=f('Regular', 20), fill=LIGHT)
-footer(im, 1); salvar(im, 2)
+footer(im, 2); salvar(im, 3)
 
-# Slide 3 — coberturas em pílulas azuis (como na referência)
-im = fatia(2, desfoque=6, escuro=0.10); d = ImageDraw.Draw(im)
+# Slide 2 — coberturas em pílulas azuis (como na referência)
+im = fatia(1, desfoque=6, escuro=0.10); d = ImageDraw.Draw(im)
 texto_sombra(im, (80, 100), 'Coberturas', f('Bold', 70), WHITE)
 texto_sombra(im, (80, 190), 'iguais em todas as idades:', f('Medium', 40), WHITE)
 ITENS = [('Morte', 'R$ 150.000'), ('Invalidez por acidente', 'R$ 150.000'), ('Antecipação por doença grave', 'R$ 150.000'),
@@ -208,7 +208,7 @@ d.rounded_rectangle((70, y + 6, W - 70, y + 140), radius=48, fill=WHITE)
 d.text((120, y + 24), 'Diagnóstico de câncer', font=f('Bold', 33), fill=NAVY)
 d.text((120, y + 76), 'sem custo em outubro, parcela acima de R$ 100', font=f('Medium', 24), fill=BLUE)
 rtext(d, W - 110, y + 36, 'R$ 50.000', f('Bold', 36), NAVY)
-footer(im, 2); salvar(im, 3)
+footer(im, 1); salvar(im, 2)
 
 # Slide 4 — chamada: modelo à direita, texto na grama à esquerda
 im = fatia(3)
