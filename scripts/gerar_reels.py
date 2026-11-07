@@ -82,7 +82,13 @@ def cena_gancho(titulo, destaque):
     d = ImageDraw.Draw(t)
     logo_pequeno(t)
     y = texto_linhas(d, quebra(d, titulo, fonte(112), LARGURA), fonte(112), MARGEM, 430)
-    pilula(d, destaque, fonte(64), MARGEM, y + 30)
+    if len(destaque) <= 24:
+        pilula(d, destaque, fonte(64), MARGEM, y + 30)
+    else:
+        linhas = quebra(d, destaque, fonte(54, False), LARGURA - 40)
+        alt = int(54 * 1.2) * len(linhas)
+        d.rounded_rectangle((MARGEM, y + 40, MARGEM + 10, y + 40 + alt), radius=5, fill=AZUL)
+        texto_linhas(d, linhas, fonte(54, False), MARGEM + 36, y + 40, espaco=1.2)
     return t
 
 
@@ -108,6 +114,19 @@ def cena_nota(frase, pergunta, aviso):
     y = texto_linhas(d, quebra(d, frase, fonte(70), LARGURA), fonte(70), MARGEM, 700)
     pilula(d, pergunta, fonte(64), MARGEM, y + 40)
     texto_linhas(d, quebra(d, aviso, fonte(30, False), LARGURA), fonte(30, False), MARGEM, 1560)
+    return t
+
+
+def cena_frase(frase, sub=None, aviso=None):
+    t = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(t)
+    logo_pequeno(t)
+    y = texto_linhas(d, quebra(d, frase, fonte(78), LARGURA), fonte(78), MARGEM, 720)
+    if sub:
+        d.rounded_rectangle((MARGEM, y + 40, MARGEM + 10, y + 40 + int(52 * 1.25) * len(quebra(d, sub, fonte(52, False), LARGURA - 40))), radius=5, fill=AZUL)
+        texto_linhas(d, quebra(d, sub, fonte(52, False), LARGURA - 40), fonte(52, False), MARGEM + 36, y + 40, espaco=1.25)
+    if aviso:
+        texto_linhas(d, quebra(d, aviso, fonte(30, False), LARGURA), fonte(30, False), MARGEM, 1540)
     return t
 
 
@@ -163,6 +182,41 @@ REELS = {
 }
 
 
+REELS['renda'] = {
+    'foto': 'reels/fotos/familia.jpg',
+    'cenas': [
+        ('gancho', dict(titulo='Se a sua renda parasse amanhã...', destaque='Quanto tempo a sua família pagaria as contas?'), 3.8),
+        ('frase', dict(frase='Aluguel. Escola. Mercado.', sub='As contas não param quando a renda para.'), 3.6),
+        ('frase', dict(frase='O seguro de vida ajuda a manter a rotina de quem você ama de pé.'), 3.8),
+        ('frase', dict(frase='Quer saber quanto custa proteger a sua família?',
+                       aviso='Valores sujeitos a análise de perfil e condições da seguradora. Coberturas variam conforme a apólice.'), 4.0),
+        ('cta', dict(palavra='COTAR'), 4.2),
+    ],
+}
+REELS['3perguntas'] = {
+    'foto': 'reels/fotos/perguntas.jpg',
+    'cenas': [
+        ('gancho', dict(titulo='Antes de cotar o seu seguro,', destaque='responda 3 coisas.'), 3.4),
+        ('passo', dict(n=1, titulo='Quem dirige o carro e onde ele dorme?'), 3.4),
+        ('passo', dict(n=2, titulo='Qual franquia cabe no seu bolso?'), 3.2),
+        ('passo', dict(n=3, titulo='Quais coberturas você não abre mão?'), 3.2),
+        ('frase', dict(frase='Com isso, a cotação sai certeira e sem surpresa.'), 3.4),
+        ('cta', dict(palavra='COTAR'), 4.2),
+    ],
+}
+REELS['moto'] = {
+    'foto': 'reels/fotos/moto.jpg',
+    'cenas': [
+        ('gancho', dict(titulo='Tem moto?', destaque='Evite estes 3 erros.'), 3.2),
+        ('passo', dict(n=1, titulo='Deixar a moto sem proteção contra furto e roubo'), 3.6),
+        ('passo', dict(n=2, titulo='Contratar sem ler o que a apólice cobre'), 3.4),
+        ('passo', dict(n=3, titulo='Esquecer de atualizar o perfil de uso', sub='Trabalho ou lazer?'), 3.4),
+        ('frase', dict(frase='Moto é ferramenta de trabalho para muita gente.', sub='Proteja.'), 3.6),
+        ('cta', dict(palavra='COTAR'), 4.2),
+    ],
+}
+
+
 def montar(nome):
     cfg = REELS[nome]
     saida = RAIZ / 'reels/saida'
@@ -174,14 +228,14 @@ def montar(nome):
         for i, (tipo, args, dur) in enumerate(cfg['cenas']):
             if tipo == 'cta':
                 bg = fundo(foto, 0.80, 0.0, 0.1)
-            elif tipo == 'nota':
+            elif tipo in ('nota', 'frase'):
                 bg = fundo(foto, 0.55, 0.3, 0.4)
             elif tipo == 'gancho':
                 bg = fundo(foto, 0.12, 0.65, 0.55)
             else:
                 bg = fundo(foto, 0.18, 0.40, 0.80)
             bg.save(tmp / f'bg{i}.png')
-            txt = {'gancho': cena_gancho, 'passo': cena_passo, 'nota': cena_nota, 'cta': cena_cta}[tipo](**args)
+            txt = {'gancho': cena_gancho, 'passo': cena_passo, 'nota': cena_nota, 'frase': cena_frase, 'cta': cena_cta}[tipo](**args)
             txt.save(tmp / f't{i}.png')
             video_cena(tmp / f'bg{i}.png', tmp / f't{i}.png', dur, tmp / f'c{i}.mp4', 'in' if i % 2 == 0 else 'out')
             partes.append(tmp / f'c{i}.mp4')
