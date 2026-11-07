@@ -1,46 +1,37 @@
-"""Gera a arte vertical (1080x1920) para enviar em grupos de WhatsApp.
-A imagem não carrega link: o clique vem do link wa.me na mensagem que acompanha a imagem."""
+"""Gera a arte 4:5 (1080x1350) para grupos de WhatsApp. O clique vem do link wa.me na mensagem."""
 import sys
 from pathlib import Path
 from PIL import Image, ImageDraw
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import gerar_reels as g
 
+g.W, g.H = 1080, 1350
 RAIZ = g.RAIZ
 saida = RAIZ / 'divulgacao'
 saida.mkdir(exist_ok=True)
 
-bg = g.fundo(RAIZ / 'reels/fotos/perguntas.jpg', 0.30, 0.45, 0.80).convert('RGBA')
+bg = g.fundo(RAIZ / 'reels/fotos/perguntas.jpg', 0.38, 0.40, 0.85).convert('RGBA')
 d = ImageDraw.Draw(bg)
-
-# logotipo grande no topo
 lg = Image.open(g.LOGO).convert('RGBA')
-lg = lg.resize((560, int(lg.height * 560 / lg.width)), Image.LANCZOS)
-bg.alpha_composite(lg, (g.MARGEM, 150))
+lg = lg.resize((440, int(lg.height * 440 / lg.width)), Image.LANCZOS)
+bg.alpha_composite(lg, (g.MARGEM, 60))
+y = g.texto_linhas(d, g.quebra(d, 'Seguro sem complicação.', g.fonte(92), 900), g.fonte(92), g.MARGEM, 250)
+g.texto_linhas(d, ['Cotação grátis, direto no WhatsApp.'], g.fonte(44, False), g.MARGEM, y + 10)
 
-# título
-y = g.texto_linhas(d, g.quebra(d, 'Seguro sem complicação.', g.fonte(118), 900), g.fonte(118), g.MARGEM, 390)
-y = g.texto_linhas(d, g.quebra(d, 'Cotação grátis, direto no WhatsApp.', g.fonte(60, False), 900), g.fonte(60, False), g.MARGEM, y + 20)
-
-# produtos em pílulas
 chips = ['Auto', 'Moto', 'Vida', 'Saúde', 'Residencial', 'Consórcio']
-x, yy = g.MARGEM, 1090
-f = g.fonte(46)
+x, yy, f = g.MARGEM, 760, g.fonte(40)
 for c in chips:
-    w = int(d.textlength(c, font=f)) + 64
+    w = int(d.textlength(c, font=f)) + 56
     if x + w > 1080 - g.MARGEM:
-        x, yy = g.MARGEM, yy + 100
-    d.rounded_rectangle((x, yy, x + w, yy + 80), radius=40, fill=g.AZUL)
-    d.text((x + 32, yy + 12), c, font=f, fill=g.BRANCO)
-    x += w + 18
+        x, yy = g.MARGEM, yy + 90
+    d.rounded_rectangle((x, yy, x + w, yy + 72), radius=36, fill=g.AZUL)
+    d.text((x + 28, yy + 9), c, font=f, fill=g.BRANCO)
+    x += w + 16
 
-# botão de chamada
-d.rounded_rectangle((g.MARGEM, 1380, 1080 - g.MARGEM, 1530), radius=75, fill=g.AZUL)
-d.text((540, 1432), 'TOQUE NO LINK ABAIXO', font=g.fonte(54), fill=g.BRANCO, anchor='mm')
-d.text((540, 1495), 'e fale agora com o Fabrício', font=g.fonte(40, False), fill=g.BRANCO, anchor='mm')
-d.text((540, 1600), 'Atendimento 24 horas  |  ' + g.TELEFONE, font=g.fonte(38), fill=g.BRANCO, anchor='mm')
-g.texto_linhas(d, g.quebra(d, 'Valores e coberturas sujeitos a análise de perfil e condições da seguradora.', g.fonte(26, False), 900),
-               g.fonte(26, False), g.MARGEM, 1665)
-
+d.rounded_rectangle((g.MARGEM, 970, 1080 - g.MARGEM, 1110), radius=70, fill=g.AZUL)
+d.text((540, 1014), 'TOQUE NO LINK ABAIXO', font=g.fonte(50), fill=g.BRANCO, anchor='mm')
+d.text((540, 1072), 'e fale agora com o Fabrício', font=g.fonte(36, False), fill=g.BRANCO, anchor='mm')
+d.text((540, 1160), 'Atendimento 24 horas', font=g.fonte(38), fill=g.BRANCO, anchor='mm')
+d.text((540, 1215), 'Valores e coberturas sujeitos a análise de perfil e condições da seguradora.',
+       font=g.fonte(23, False), fill=g.BRANCO, anchor='mm')
 bg.convert('RGB').save(saida / 'whatsapp_cotacao.jpg', quality=95)
-print('OK', saida / 'whatsapp_cotacao.jpg')
