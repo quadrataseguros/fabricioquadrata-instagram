@@ -21,3 +21,6 @@
 # Calendario intensivo (ver calendario_intensivo.md). Feed as 12:00, ate 2 posts por dia.
 2026-11-09 12:00 020_seguro_moto_canva
 2026-11-10 12:00 021_seguro_celular_canva
+2026-11-11 12:00 024_5_coberturas_carrossel
+2026-11-12 12:00 025_novembro_azul
+2026-11-13 12:00 026_alagamento_4_passos
