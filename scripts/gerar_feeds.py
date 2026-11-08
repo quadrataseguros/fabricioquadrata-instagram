@@ -87,15 +87,23 @@ def cta(pergunta, palavra, n, total, aviso=AVISO_PADRAO):
     return t
 
 
-def post_foto(foto, titulo, sub, chips, aviso=None):
+def post_foto(foto, titulo, sub, chips, aviso=None, desloca=0, tam_titulo=84, chips_y=800):
     """Imagem única: foto de fundo, título no alto, chips e faixa de contato embaixo."""
     bg = g.fundo(RAIZ / foto, 0.30, 0.50, 0.85).convert('RGBA')
+    if desloca:
+        base = fundo_liso()
+        base.paste(bg.crop((0, 0, W, H - desloca)), (0, desloca))
+        for i in range(260):  # degradê para fundir a foto com o fundo azul no alto
+            a = int(255 * (1 - i / 260))
+            faixa = Image.new('RGBA', (W, 1), (*g.MARINHO, a))
+            base.alpha_composite(faixa, (0, desloca + i))
+        bg = base
     d = ImageDraw.Draw(bg)
     logo(bg, 380, M, 60)
-    y = g.texto_linhas(d, g.quebra(d, titulo, g.fonte(84), 900), g.fonte(84), M, 240)
+    y = g.texto_linhas(d, g.quebra(d, titulo, g.fonte(tam_titulo), 900), g.fonte(tam_titulo), M, 240)
     if sub:
         g.texto_linhas(d, g.quebra(d, sub, g.fonte(42, False), 900), g.fonte(42, False), M, y + 10)
-    x, yy, f = M, 800, g.fonte(38)
+    x, yy, f = M, chips_y, g.fonte(38)
     for c in chips:
         w = int(d.textlength(c, font=f)) + 56
         if x + w > W - M:
@@ -154,9 +162,9 @@ def alagamento():
 
 def novembro_azul(foto='reels/fotos/novembro_azul.jpg'):
     salvar('025_novembro_azul', [post_foto(
-        foto, 'Novembro Azul: cuidar de você também protege quem ama.', 'Marque um homem importante na sua vida.',
+        foto, 'Novembro Azul: cuidar de você também protege quem ama.', 'Marque um homem importante.',
         ['Consulta em dia', 'Exames de rotina', 'Prevenção'],
-        'Conteúdo informativo. Não substitui orientação médica. Coberturas variam conforme a apólice. Valores sujeitos a análise de perfil e condições da seguradora.')])
+        'Conteúdo informativo. Não substitui orientação médica. Coberturas variam conforme a apólice. Valores sujeitos a análise de perfil e condições da seguradora.', desloca=230, tam_titulo=74, chips_y=930)])
 
 
 def consorcio(foto='reels/fotos/consorcio.jpg'):
