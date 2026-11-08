@@ -17,6 +17,7 @@ for candidate in [script_dir.parent / "credenciais.txt", script_dir.parent / ".e
 IG_ID      = os.getenv("INSTAGRAM_BUSINESS_ID")
 TOKEN      = os.getenv("INSTAGRAM_ACCESS_TOKEN")
 API_VER    = os.getenv("META_API_VERSION", "v21.0")
+COLABORADORES = ["quadrataseguros"]  # sempre marcado como colaborador nos posts do feed
 BASE_URL   = f"https://graph.instagram.com/{API_VER}"
 
 
@@ -81,6 +82,19 @@ def host_image(image_path: str) -> str:
     raise RuntimeError("Nenhum site de hospedagem aceitou a imagem. Nada foi publicado.")
 
 
+def _criar_com_colaborador(dados: dict, timeout: int):
+    """Cria o container já com o colaborador. Se o Instagram recusar a marcação,
+    publica sem ela e avisa (para não travar a agenda)."""
+    url = f"{BASE_URL}/{IG_ID}/media"
+    resp = requests.post(url, data={**dados, "collaborators": json.dumps(COLABORADORES)}, timeout=timeout)
+    result = resp.json()
+    if "id" in result:
+        print(f"  Colaborador marcado: {', '.join('@' + c for c in COLABORADORES)}")
+        return result
+    print(f"  ATENCAO: Instagram recusou a marcacao de colaborador ({result}). Publicando sem ela.")
+    return requests.post(url, data=dados, timeout=timeout).json()
+
+
 def create_media_container(image_url: str) -> str:
     resp = requests.post(f"{BASE_URL}/{IG_ID}/media", data={
         "access_token": TOKEN,
@@ -95,12 +109,11 @@ def create_media_container(image_url: str) -> str:
 
 
 def create_single(image_url: str, caption: str) -> str:
-    resp = requests.post(f"{BASE_URL}/{IG_ID}/media", data={
+    result = _criar_com_colaborador({
         "access_token": TOKEN,
         "image_url": image_url,
         "caption": caption,
-    }, timeout=60)
-    result = resp.json()
+    }, 60)
     if "id" not in result:
         raise RuntimeError(f"Erro ao criar post: {result}")
     print(f"  Post criado: {result['id']}")
@@ -108,13 +121,12 @@ def create_single(image_url: str, caption: str) -> str:
 
 
 def create_carousel(media_ids: list, caption: str) -> str:
-    resp = requests.post(f"{BASE_URL}/{IG_ID}/media", data={
+    result = _criar_com_colaborador({
         "access_token": TOKEN,
         "media_type": "CAROUSEL",
         "children": ",".join(media_ids),
         "caption": caption,
-    }, timeout=30)
-    result = resp.json()
+    }, 30)
     if "id" not in result:
         raise RuntimeError(f"Erro ao criar carrossel: {result}")
     print(f"  Carrossel criado: {result['id']}")
