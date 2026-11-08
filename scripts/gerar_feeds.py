@@ -87,7 +87,7 @@ def cta(pergunta, palavra, n, total, aviso=AVISO_PADRAO):
     return t
 
 
-def post_foto(foto, titulo, sub, chips, aviso=None, desloca=0, tam_titulo=84, chips_y=800):
+def post_foto(foto, titulo, sub, chips, aviso=None, desloca=0, tam_titulo=84, chips_y=800, tam_chip=38):
     """Imagem única: foto de fundo, título no alto, chips e faixa de contato embaixo."""
     bg = g.fundo(RAIZ / foto, 0.30, 0.50, 0.85).convert('RGBA')
     if desloca:
@@ -103,7 +103,7 @@ def post_foto(foto, titulo, sub, chips, aviso=None, desloca=0, tam_titulo=84, ch
     y = g.texto_linhas(d, g.quebra(d, titulo, g.fonte(tam_titulo), 900), g.fonte(tam_titulo), M, 240)
     if sub:
         g.texto_linhas(d, g.quebra(d, sub, g.fonte(42, False), 900), g.fonte(42, False), M, y + 10)
-    x, yy, f = M, chips_y, g.fonte(38)
+    x, yy, f = M, chips_y, g.fonte(tam_chip)
     for c in chips:
         w = int(d.textlength(c, font=f)) + 56
         if x + w > W - M:
@@ -169,9 +169,10 @@ def novembro_azul(foto='reels/fotos/novembro_azul.jpg'):
 
 def consorcio(foto='reels/fotos/perguntas.jpg'):
     salvar('027_consorcio', [post_foto(
-        foto, 'Consórcio: planejar a conquista passo a passo.', 'Casa, carro ou moto, com planejamento.',
-        ['Grupo de pessoas', 'Parcelas mensais', 'Sorteio ou lance'],
-        'Há taxa de administração e a contemplação não tem data garantida. Leia o contrato. Condições sujeitas à análise e às regras da administradora.', desloca=230, tam_titulo=74, chips_y=930)])
+        foto, 'Consórcio: planejamento estratégico.', 'Conquiste mais, com inteligência.',
+        ['Parcelas reduzidas até a contemplação*', 'Várias contemplações por mês', 'Planejamento estratégico'],
+        '*Nos planos com parcela reduzida, conforme a administradora. Condições conforme o plano e o contrato.',
+        desloca=230, tam_titulo=84, chips_y=850, tam_chip=36)])
 
 
 if __name__ == '__main__':
