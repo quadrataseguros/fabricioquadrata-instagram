@@ -17,3 +17,7 @@
 2026-10-10 10:30 007_seguro_residencial
 # 2026-10-20 15:30 017_seguro_vida_valores   (substituído pelo 018; não publicar)
 2026-10-20 17:30 018_seguro_vida_cinema
+
+# Calendario intensivo (ver calendario_intensivo.md). Feed as 12:00, ate 2 posts por dia.
+2026-11-09 12:00 020_seguro_moto_canva
+2026-11-10 12:00 021_seguro_celular_canva
