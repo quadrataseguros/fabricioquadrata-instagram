@@ -167,11 +167,11 @@ def novembro_azul(foto='reels/fotos/novembro_azul.jpg'):
         'Conteúdo informativo. Não substitui orientação médica. Coberturas variam conforme a apólice. Valores sujeitos a análise de perfil e condições da seguradora.', desloca=230, tam_titulo=74, chips_y=930)])
 
 
-def consorcio(foto='reels/fotos/consorcio.jpg'):
+def consorcio(foto='reels/fotos/perguntas.jpg'):
     salvar('027_consorcio', [post_foto(
-        foto, 'Consórcio: planejar a conquista passo a passo.', 'Casa, carro ou moto, sem pressa e com planejamento.',
+        foto, 'Consórcio: planejar a conquista passo a passo.', 'Casa, carro ou moto, com planejamento.',
         ['Grupo de pessoas', 'Parcelas mensais', 'Sorteio ou lance'],
-        'Há taxa de administração e a contemplação não tem data garantida. Leia o contrato. Condições sujeitas à análise e às regras da administradora.')])
+        'Há taxa de administração e a contemplação não tem data garantida. Leia o contrato. Condições sujeitas à análise e às regras da administradora.', desloca=230, tam_titulo=74, chips_y=930)])
 
 
 if __name__ == '__main__':
