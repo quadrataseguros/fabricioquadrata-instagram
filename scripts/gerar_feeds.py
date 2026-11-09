@@ -175,5 +175,47 @@ def consorcio(foto='reels/fotos/perguntas.jpg'):
         desloca=230, tam_titulo=84, chips_y=850, tam_chip=36)])
 
 
+def boa_semana_arte(altura, foto='reels/fotos/perguntas.jpg'):
+    """Feed (1350) ou Stories (1920): título, 3 cartões e faixa de contato."""
+    g.W, g.H = 1080, altura
+    bg = g.fundo(RAIZ / foto, 0.60, 0.25, 0.55).convert('RGBA')
+    d = ImageDraw.Draw(bg)
+    story = altura > 1500
+    topo = 270 if story else 60
+    logo(bg, 400, M, topo)
+    y = topo + 190
+    d.text((M, y), 'Boa semana!', font=g.fonte(118), fill=g.BRANCO)
+    d.text((M, y + 150), 'Deixe estas 3 coisas em dia:', font=g.fonte(48, False), fill=g.BRANCO)
+    itens = [('Apólice salva no celular', 'Na hora do aperto, você acha em segundos.'),
+             ('Número do Fabrício salvo', 'Atendimento 24h pelo WhatsApp.'),
+             ('Revisão do carro ou da moto', 'Mais tranquilidade em cada trajeto.')]
+    cy = y + 260
+    for i, (t, sub) in enumerate(itens, 1):
+        card = Image.new('RGBA', (W - 2 * M, 150), (*g.MARINHO, 205))
+        mask = Image.new('L', card.size, 0)
+        ImageDraw.Draw(mask).rounded_rectangle((0, 0, card.width, card.height), radius=34, fill=255)
+        bg.paste(card, (M, cy), mask)
+        d.ellipse((M + 24, cy + 37, M + 100, cy + 113), fill=g.AZUL)
+        d.text((M + 62, cy + 76), str(i), font=g.fonte(46), fill=g.BRANCO, anchor='mm')
+        d.text((M + 126, cy + 28), t, font=g.fonte(40), fill=g.BRANCO)
+        d.text((M + 126, cy + 84), sub, font=g.fonte(29, False), fill=g.BRANCO)
+        cy += 175
+    base = altura - 250 - 230 if story else altura - 240
+    d.rectangle((0, base, W, base + (230 if story else 240)), fill=g.MARINHO)
+    logo(bg, 300, M, base + 25)
+    d.text((440, base + 30), 'Salve o número do Fabrício:', font=g.fonte(34), fill=g.BRANCO)
+    d.text((440, base + 78), g.TELEFONE, font=g.fonte(70), fill=g.AZUL)
+    if not story:
+        d.text((M, base + 190), '@fabricioquadrata', font=g.fonte(28, False), fill=g.BRANCO)
+    g.W, g.H = 1080, 1350
+    return bg
+
+
+def boa_semana():
+    salvar('028_boa_semana', [boa_semana_arte(1350)])
+    out = RAIZ / 'posts/028_boa_semana'
+    boa_semana_arte(1920).convert('RGB').save(out / 'story.jpg', quality=95)
+
+
 if __name__ == '__main__':
     globals()[sys.argv[1]]()
