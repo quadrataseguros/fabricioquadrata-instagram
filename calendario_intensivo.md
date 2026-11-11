@@ -1,3 +1,5 @@
+> **Revisado em 11/11/2026.** Os dados mostraram que imagem estática alcança de 4 a 20 pessoas e Reel alcança cerca de 20 vezes mais. O ritmo passa a ser: **4 Reels por semana** (ter, qui, sex e dom, 19:30, postados à mão com música) e **3 posts estáticos por semana** (seg, qua e sáb, 12:00, pela agenda), no máximo 1 post por dia, sempre com @quadrataseguros como colaborador. Estáticos na fila: 14/11 Novembro Azul, 16/11 Coberturas, 18/11 Alagamento, 21/11 Consórcio. As tabelas abaixo são o plano anterior e servem como banco de temas.
+
 # Calendário intensivo: @fabricioquadrata (08/11 a 06/12/2026)
 
 Horário de Brasília. **Nada vai ao ar sem o "sim" do Fabrício, post a post.**

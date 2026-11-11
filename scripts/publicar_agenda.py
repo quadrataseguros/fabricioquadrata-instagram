@@ -4,7 +4,7 @@ Roda como Cron Job no Render a cada 15 minutos (ou no Agendador do Windows).
 
 Regras de segurança:
 - Só publica entre 10:00 e 21:30 (horário de Brasília).
-- No máximo 2 posts por dia, com pelo menos 4 horas entre um e outro.
+- No máximo 1 post por dia.
 - Antes de publicar, consulta o próprio Instagram: se a legenda já está no
   perfil, não publica de novo. Se não conseguir consultar, não publica.
 
@@ -20,7 +20,7 @@ AGENDA = RAIZ / 'agenda.txt'
 LOG = RAIZ / 'agenda_log.txt'
 BRASILIA = timezone(timedelta(hours=-3))  # o Brasil não tem mais horário de verão
 JANELA = (time(10, 0), time(21, 30))
-MAX_POR_DIA = 2
+MAX_POR_DIA = 1
 INTERVALO_MIN = timedelta(hours=4)
 
 if sys.stdout is None:  # rodando sem janela (pythonw no Windows): grava em arquivo

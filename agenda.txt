@@ -18,9 +18,10 @@
 # 2026-10-20 15:30 017_seguro_vida_valores   (substituído pelo 018; não publicar)
 2026-10-20 17:30 018_seguro_vida_cinema
 
-# Calendario intensivo (ver calendario_intensivo.md). Feed as 12:00, ate 2 posts por dia.
-2026-11-09 12:00 020_seguro_moto_canva
-2026-11-10 12:00 021_seguro_celular_canva
-2026-11-11 12:00 024_5_coberturas_carrossel
-2026-11-12 12:00 025_novembro_azul
-2026-11-13 12:00 026_alagamento_4_passos
+# Calendario revisado em 11/11 (ver revisao_marketing.md): 3 posts estaticos por semana, 1 por dia.
+# Reels (ter, qui, sex, dom) sao postados a mao no Instagram, com musica.
+# Ja publicados pelo Windsor: 019, 020, 021, 022, 023, 028.
+2026-11-14 12:00 025_novembro_azul
+2026-11-16 12:00 024_5_coberturas_carrossel
+2026-11-18 12:00 026_alagamento_4_passos
+2026-11-21 12:00 027_consorcio
