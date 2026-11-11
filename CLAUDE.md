@@ -52,6 +52,16 @@ credenciais.txt          (token — NUNCA enviar ao GitHub nem mostrar em chat)
 - **Só colocar na agenda posts que o usuário já aprovou.**
 - Ver a fila: `python scripts/publicar_agenda.py --status`.
 
+## Tom dos textos (decisão do Fabrício)
+- Destacar os **benefícios** do consórcio e dos demais produtos. Não montar listas de pontos negativos.
+- Manter só uma nota curta de condições (ex.: "Condições conforme o plano e o contrato").
+- Evitar superlativos que precisem de comprovação ("o mais barato", "a forma mais econômica"): usar "um caminho econômico", "inteligente", "estratégico".
+
+## Colaborador (regra obrigatória)
+- **Todo post de feed, carrossel e Reel marca @quadrataseguros como colaborador.** O robô (`publish_instagram.py`) já envia o convite. Stories não aceitam colaborador.
+- O Windsor não tem o campo de colaborador: se um post for publicado por ele, convidar @quadrataseguros à mão no Instagram (Marcar pessoas > Convidar colaborador) e avisar o Fabrício.
+- O convite só vira coautoria depois que @quadrataseguros aceita, e a conta precisa ser pública.
+
 ## Cuidados
 - O token em `credenciais.txt` é o MESMO usado pelo robô de mensagens no Render. Vence em **27/11/2026**; ao renovar, atualizar aqui e no Render.
 - Não mexer na pasta da Mariana (`..\`) nem nas configurações de webhook.

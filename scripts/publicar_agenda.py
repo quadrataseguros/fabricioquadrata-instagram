@@ -20,6 +20,8 @@ AGENDA = RAIZ / 'agenda.txt'
 LOG = RAIZ / 'agenda_log.txt'
 BRASILIA = timezone(timedelta(hours=-3))  # o Brasil não tem mais horário de verão
 JANELA = (time(10, 0), time(21, 30))
+MAX_POR_DIA = 1
+INTERVALO_MIN = timedelta(hours=4)
 
 if sys.stdout is None:  # rodando sem janela (pythonw no Windows): grava em arquivo
     sys.stdout = sys.stderr = open(LOG, 'a', encoding='utf-8')
@@ -55,7 +57,7 @@ def posts_do_perfil():
     dados = r.json()
     if 'data' not in dados:
         raise RuntimeError(f'Não consegui consultar o Instagram: {dados}')
-    return [(datetime.strptime(m['timestamp'], '%Y-%m-%dT%H:%M:%S%z').astimezone(BRASILIA).date(),
+    return [(datetime.strptime(m['timestamp'], '%Y-%m-%dT%H:%M:%S%z').astimezone(BRASILIA).replace(tzinfo=None),
              normaliza(m.get('caption'))) for m in dados['data']]
 
 
@@ -86,8 +88,11 @@ def main():
         perfil = posts_do_perfil()
     except Exception as e:
         print(f'{agora:%d/%m %H:%M} {e}. Nada publicado.'); return
-    if any(d == agora.date() for d, _ in perfil):
-        return  # já saiu um post hoje
+    hoje = [d for d, _ in perfil if d.date() == agora.date()]
+    if len(hoje) >= MAX_POR_DIA:
+        return  # já saiu o máximo de posts de hoje
+    if hoje and agora - max(hoje) < INTERVALO_MIN:
+        return  # espera o intervalo mínimo entre posts
     pendentes = [(q, p) for q, p in vencidos if p.is_dir() and not ja_no_perfil(p, perfil)]
     if not pendentes:
         return

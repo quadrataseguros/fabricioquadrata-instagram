@@ -17,3 +17,11 @@
 2026-10-10 10:30 007_seguro_residencial
 # 2026-10-20 15:30 017_seguro_vida_valores   (substituído pelo 018; não publicar)
 2026-10-20 17:30 018_seguro_vida_cinema
+
+# Calendario revisado em 11/11 (ver revisao_marketing.md): 3 posts estaticos por semana, 1 por dia.
+# Reels (ter, qui, sex, dom) sao postados a mao no Instagram, com musica.
+# Ja publicados pelo Windsor: 019, 020, 021, 022, 023, 028.
+2026-11-14 12:00 025_novembro_azul
+2026-11-16 12:00 024_5_coberturas_carrossel
+2026-11-18 12:00 026_alagamento_4_passos
+2026-11-21 12:00 027_consorcio
